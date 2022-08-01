@@ -7,7 +7,7 @@
     "build": "npm install --froce && ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "install-client": "cd dol-swe-comp && npm install --force",
+    "install-client": "npm install --force",
     "heroku-postbuild":"npm run install-client &&  npm run build"
   },
   "engines": {
