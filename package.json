@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --aot --prod",
+    "build": "npm install --froce && ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "install-client": "npm install --force",
+    "install-client": "cd dol-swe-comp && npm install --force",
     "heroku-postbuild":"npm run install-client &&  npm run build"
   },
   "private": true,
