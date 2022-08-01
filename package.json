@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build --aot --prod",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "install-client": "npm install --force",
+    "heroku-postbuild":"npm run install-client &&  npm run build"
   },
   "private": true,
   "dependencies": {
