@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "npm install --force && ng build --aot --prod",
+    "start": "echo '!!!start' && ng serve",
+    "build": "echo '!!!build' && npm install --force && ng build --aot --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "install-client": "npm install --force",
-    "heroku-postbuild":"npm run install-client &&  npm run build"
+    "install-client": "echo '!!!client install' && npm install --force",
+    "heroku-postbuild":"echo '!!!postbuild' && npm run install-client &&  npm run build"
   },
   "engines": {
     "node": "16.x",
