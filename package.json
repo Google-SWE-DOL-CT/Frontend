@@ -10,6 +10,10 @@
     "install-client": "cd dol-swe-comp && npm install --force",
     "heroku-postbuild":"npm run install-client &&  npm run build"
   },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
   "private": true,
   "dependencies": {
     "@angular/cli": "~13.3.6",
