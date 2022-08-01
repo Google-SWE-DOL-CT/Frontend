@@ -1,0 +1,154 @@
+<div *ngIf="user && jobFunction">
+    <div class="singleUsercontainer">
+        <div class="navigation">
+            <div class="sidebarMain">
+                <div *ngFor="let jf of jobFunction">
+                    <details (click)="checkStatusPosition(jf)" [id]="jf.id">
+                        <summary class="summaryStyle">
+                            {{jf.title}}
+                            <div style="display: flex; flex-direction: row" [id]="jf.title">
+                                <div *ngFor="let subStatus of user.SubFunctions; index as i">
+                                    <div *ngIf="jf.id == subStatus.JobFunctionId">
+                                        <div *ngIf="userStats[i] == 'crown'; else inline_status">
+                                            <div class="standardCrownStat">
+                                                👑
+                                            </div>
+                                        </div>
+                                        <ng-template #inline_status>
+                                            <div #standard_status class="standardStat"
+                                                [style.background]="userStats[i]">
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </summary>
+                        <div *ngFor="let child of user.SubFunctions; index as i">
+                            <div *ngIf="jf.id == child.JobFunctionId">
+                                <a class="navLink" routerLink="jobFunction/{{jf.id}}/subFunction/{{child.id}}">
+                                    <div style="display: flex; flex-direction: row">
+                                        <div *ngIf="userStats[i] == 'crown'; else inline_status">
+                                            <div class="standardCrownStat">
+                                                👑
+                                            </div>
+                                        </div>
+                                        <ng-template #inline_status>
+                                            <div #standard_status class="standardStat" [style.background]="userStats[i]"
+                                                style="align-self: center; right: 0px;">
+                                            </div>
+                                        </ng-template>
+                                        <div class="detailsStyle"> {{child.subId}} {{child.papperId}}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                <a class="navLink">
+                    <p>About</p>
+                </a>
+                <a class="navLink">
+                    <p>Fun Stuff</p>
+                </a>
+            </div>
+        </div>
+        <div class="main">
+            <div class="statusDiv">
+                <div *ngFor="let circ of userStats; index as i">
+                    <div *ngIf="circ == 'crown'; else standard_status">
+                        <div class="crownstatus" [style.transform]="'rotate('+userStatAngles[i]+'deg'+')'">
+                            <div [style.transform]="'rotate('+(0 - userStatAngles[i])+'deg'+')'">
+                                👑
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #standard_status>
+                        <div #standard_status class="userStatus"
+                            [style.transform]="'rotate('+userStatAngles[i]+'deg'+')'" [style.background]="userStats[i]">
+                            <div [style.transform]="'rotate('+(0 - userStatAngles[i])+'deg'+')'">
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+                <img [src]="user.githubPic" class="gitHubPicture" />
+            </div>
+            <h1 style="margin-top: 50px;">
+                {{user.firstName}}
+            </h1>
+            <div>
+                <div *ngIf="isCurrentUser || isAdmin">
+                    <div>
+                        <div class="statsBackground">
+                            <div style="display: flex; flex-direction: row; justify-content: space-between;"
+                                [id]="user.id">
+                                <div>
+                                    <div class="sidebarStat" style="background: #d9d9d9;"></div>
+                                    <div style="display: inline-block; margin-right: 10px;">
+                                        {{percentage(notStartedSubFunc.length,
+                                        userStatAngles.length)}}%
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="sidebarStat" style="background: #5C89CC;"></div>
+                                    <div style="display: inline-block; margin-right: 10px;">
+                                        {{percentage(inProgressSubFunc.length,
+                                        userStatAngles.length)}}%</div>
+                                </div>
+                                <div>
+                                    <div class="sidebarStat" style="background: #008000;"></div>
+                                    <div style="display: inline-block; margin-right: 10px;">
+                                        {{percentage(rfrSubFunc.length,
+                                        userStatAngles.length)}}%
+                                    </div>
+                                </div>
+                                <div class="break">
+                                </div>
+                                <div>
+                                    <div class="sidebarCrown">👑</div>
+                                    <div style="display: inline-block;">{{percentage(completedSubFunc.length,
+                                        userStatAngles.length)}}%</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <button class="tablinks" (click)="openStat($event, 'Not Started')">Not Started
+                                ({{notStartedSubFunc.length}})</button>
+                            <button class="tablinks" (click)="openStat($event, 'In Progress')">In Progress
+                                ({{inProgressSubFunc.length}})</button>
+                            <button class="tablinks" (click)="openStat($event, 'Ready For Review')">Ready For Review
+                                ({{rfrSubFunc.length}})</button>
+                        </div>
+
+                        <div id="Not Started" class="tabcontent" style="display: block;">
+                            <div *ngFor="let nsJob of notStartedSubFunc">
+                                <a class="navLink"
+                                    routerLink="jobFunction/{{nsJob.JobFunctionId}}/subFunction/{{nsJob.id}}">
+                                    {{nsJob.subId}} - {{nsJob.papperId}}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div id="In Progress" class="tabcontent">
+                            <div *ngFor="let ipJob of inProgressSubFunc">
+                                <a class="navLink"
+                                    routerLink="jobFunction/{{ipJob.JobFunctionId}}/subFunction/{{ipJob.id}}">
+                                    {{ipJob.subId}} - {{ipJob.papperId}}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div id="Ready For Review" class="tabcontent">
+                            <div *ngFor="let rfrJob of rfrSubFunc">
+                                <a class="navLink"
+                                    routerLink="jobFunction/{{rfrJob.JobFunctionId}}/subFunction/{{rfrJob.id}}">
+                                    {{rfrJob.subId}} - {{rfrJob.papperId}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

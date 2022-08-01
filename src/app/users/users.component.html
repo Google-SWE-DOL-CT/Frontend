@@ -1,0 +1,44 @@
+<div class="userMain">
+  <div *ngIf="userRoot">
+    <div class="userCards" onload="shuffleItems()">
+      <div class="cards">
+        <div class="card" *ngFor="let user of userRoot.users; let i=index">
+          <a class="standardLink" routerLink="/users/{{user.id}}">
+            <div>
+              <img class="imageStyle" [src]="user.githubPic" alt="">
+            </div>
+            <div class="nameStyle">
+              <h3>
+                {{user.firstName}} {{user.lastName}}
+              </h3>
+            </div>
+          </a>
+          <div *ngIf="viewStats">
+            <div class="statsView">
+              <div>
+                <div class="standardStat" style="background: #d9d9d9;"></div>
+                <div style="display: inline-block; padding-bottom: 10px;">{{percentage(incompleteCount[i],
+                  totalCount[i])}}%
+                </div>
+              </div>
+              <div>
+                <div class="standardStat" style="background: #5C89CC;"></div>
+                <div style="display: inline-block;">{{percentage(inProgressCount[i], totalCount[i])}}%</div>
+              </div>
+              <div>
+                <div class="standardStat" style="background: #008000;"></div>
+                <div style="display: inline-block;">{{percentage(rfrCount[i], totalCount[i])}}%</div>
+              </div>
+              <div class="break">
+              </div>
+              <div>
+                <div class="standardCrownStat">👑</div>
+                <div style="display: inline-block;">{{percentage(crownCount[i], totalCount[i])}}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

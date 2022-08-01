@@ -1,0 +1,100 @@
+body{
+  background-color: #93A5C0;
+  font-family: "BIZ UDPGothic", sans-serif;
+  height: 100vh;
+}
+
+.standardLink {
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.standardLink:visited{
+  color: white
+}
+
+.standardLink:hover{
+  color: lightgray;
+}
+
+.navLink {
+  text-decoration: none;
+  color:black;
+  transition: all 0.2s ease-in-out;
+}
+
+.navLink:visited {
+  color: black;
+}
+
+.navLink:hover {
+  color:#93A5C0
+}
+
+.standardButton {
+  background-color: #909090;
+  color: white;
+  font-family: "BIZ UDPGothic", sans-serif;
+  font-size: medium;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 30px;
+  margin: 5px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  max-width: 50%;
+  min-width: 25%;
+
+}
+
+.standardButton:hover{
+  background-color: #93A5C0;
+  cursor: pointer;
+}
+
+.userStatus{
+  margin: 2px;
+  width: 15px;
+  height: 15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 50%;
+
+}
+
+.crownstatus {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  top: -4px;
+}
+
+.standardStat {
+  margin: 2px;
+  width: 15px;
+  height: 15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 50%;
+}
+
+.standardCrownStat {
+  font-size: 0.9rem;
+  width: 5px;
+  height: 5px;
+  margin-top: 2px;
+  margin-right: 15px;
+}
+
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid black;
+  margin: 1em 0;
+  padding: 0;
+}

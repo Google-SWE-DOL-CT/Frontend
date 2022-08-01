@@ -1,0 +1,104 @@
+<div class="noPrint" id="noPrint">
+  <button id="printButton" (click)="openPDF()" class="generateButton">Download PDF</button>
+  <p style="display: none;" id="progress">
+  </p>
+</div>
+<div id="htmlData" class="generalPage">
+  <div *ngIf="user">
+    <div *ngFor="let uj of user.SubFunctions; index as i">
+      <!-- <h3 id="jfTitle" style="margin-left: 1.2em; margin-bottom: 10px;">
+        {{uj.JobFunction.title}}
+      </h3> -->
+      <div class="reportPage" [id]="'uj' + uj.id">
+        <div>
+          <h2 style="display: inline;">
+            {{uj.JobFunction.title}}
+          </h2>
+
+          <h3 style="display: inline;">
+            - {{uj.subId}} {{uj.papperId}}
+          </h3>
+        </div>
+        <p style="font-size: small; margin: 5px 0 5px 0;">
+          {{uj.outcomes}}
+        </p>
+        <div style="background: #cfcfcf; border-radius: 15px; padding: 10px;">
+
+          <div *ngIf="renderCode[i]; else nocode">
+            <div>
+              <pre class="language-{{ uj.UserJob.language}}"><code #codeEle class="language-{{ uj.UserJob.language }}" style="font-size: small; line-height: 200%;">{{uj.UserJob.code}}</code>
+            </pre>
+            </div>
+            <div *ngIf="renderLanguage; else nolang" style="padding: 5px 0 5px 0">
+              Language: {{prettyLanguage[i]}}
+            </div>
+            <ng-template #nolang>
+              <div style="padding: 5px 0 5px 0">
+                No programming language selected
+              </div>
+            </ng-template>
+          </div>
+          <ng-template #nocode>
+            <div style="padding: 5px 0 5px 0">
+              No code snippet provided
+            </div>
+          </ng-template>
+          <div *ngIf="renderGitHubLink[i];" style="padding: 5px 0 5px 0">
+            Link:
+            <a href="" class="navLink" target=" _blank">
+              {{uj.UserJob.githubLink}}
+            </a>
+          </div>
+
+          <div *ngIf="renderImage[i]; else noimage" style="padding: 5px 0 5px 0">
+            <img [src]=imageBuffer[i] class="reportImage" id="ujImage" />
+          </div>
+          <ng-template #noimage>
+            <div style="padding: 5px 0 5px 0">
+              No screenshot provided
+            </div>
+          </ng-template>
+
+          <div class="reportJustification">
+            {{uj.UserJob.justification}}
+          </div>
+
+          <hr />
+          <div>
+            <h3>Coach Notes:</h3>
+          </div>
+
+          <div class="reportJustification">
+            {{adminComments[i]}}
+          </div>
+          <div style="display: flex; flex-direction:row; justify-content: space-around;">
+            <div *ngIf="adminNotAttempted[i] == 0">
+              <div *ngIf="adminExpectations[i] == 0; else expectations" style="color: red;">
+                Needs Improvement
+              </div>
+              <ng-template #expectations>
+                <div style="color: #008000;">
+                  Meets Expectations
+                </div>
+              </ng-template>
+            </div>
+            <div *ngIf="adminNotAttempted[i] == 1; else compLocale">
+              Not Attempted
+            </div>
+            <ng-template #compLocale>
+              <div
+                [ngStyle]="{'color': adminOnJob[i] === 1 ? 'green' : 'red', 'text-decoration': adminOnJob[i] === 1 ? 'none' : 'line-through'}">
+                On The Job Practice
+              </div>
+              <div
+                [ngStyle]="{'color': adminMVPractice[i] === 1 ? 'green' : 'red', 'text-decoration': adminMVPractice[i] === 1 ? 'none' : 'line-through'}">
+                Practice with Multiverse
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

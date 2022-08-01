@@ -1,0 +1,32 @@
+<div class="container" id="banner">
+  <div class="blank">
+    <!-- TODO: remove before launch -->
+    <div *ngIf="isAdmin == 3">
+      <button class="homeButton" (click)="switchRole()">To Admin</button>
+    </div>
+    <div *ngIf="isAdmin == 1">
+      <button class="homeButton" (click)="switchRole()">To Dev</button>
+    </div>
+    <!-- end remove -->
+  </div>
+  <div class="bannerText">
+    <div *ngIf="!isLoginPage; else nolink">
+      <a class="standardLink" routerLink="/users">
+        <h1>Department Of Labor Competency Tracker</h1>
+      </a>
+    </div>
+    <ng-template #nolink>
+      <h1>Department Of Labor Competency Tracker</h1>
+    </ng-template>
+  </div>
+  <div *ngIf="!isLoginPage">
+    <div class="login">
+      <div *ngIf="isAdmin == 1; else userpage">
+        <button class="homeButton" (click)="myProfile()">To Dashboard</button>
+      </div>
+      <ng-template #userpage>
+        <button class="homeButton" (click)="myProfile()">My Profile</button>
+      </ng-template>
+    </div>
+  </div>
+</div>

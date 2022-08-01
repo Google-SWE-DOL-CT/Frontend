@@ -1,0 +1,82 @@
+<div *ngIf="userRoot">
+  <div class="singleUsercontainer">
+    <div class="navigation">
+      <div class="sidebarMain">
+        <button class="generateButton" (click)="newViewer()">Add Viewer Account</button>
+        <div *ngFor="let user of userRoot.users; index as i">
+          <details (click)="checkStatusPosition(user)" [id]="user.id">
+            <summary class="summaryStyle">
+              <a class="navLink" routerLink="/users/{{user.id}}">
+                {{user.firstName}} {{user.lastName}}
+              </a>
+              <div style="display: flex; flex-direction: row" [id]="user.id">
+                <div>
+                  <div class="sidebarStat" style="background: #d9d9d9;"></div>
+                  <div style="display: inline-block; margin-right: 10px;">{{percentage(incompleteCount[i],
+                    totalCount[i])}}%
+                  </div>
+                </div>
+                <div>
+                  <div class="sidebarStat" style="background: #5C89CC;"></div>
+                  <div style="display: inline-block; margin-right: 10px;">{{percentage(inProgressCount[i],
+                    totalCount[i])}}%</div>
+                </div>
+                <div>
+                  <div class="sidebarStat" style="background: #008000;"></div>
+                  <div style="display: inline-block; margin-right: 10px;">{{percentage(rfrCount[i], totalCount[i])}}%
+                  </div>
+                </div>
+                <div class="break">
+                </div>
+                <div>
+                  <div class="sidebarCrown">👑</div>
+                  <div style="display: inline-block;">{{percentage(crownCount[i], totalCount[i])}}%</div>
+                </div>
+
+              </div>
+            </summary>
+            <button class="generateButton" (click)="toReport(user.id)">Generate Report</button>
+          </details>
+        </div>
+        <a class="navLink">
+          <p>About</p>
+        </a>
+        <a class="navLink">
+          <p>Fun Stuff</p>
+        </a>
+      </div>
+    </div>
+    <div class="main">
+      <div *ngFor="let user of adminUsers">
+        <div class="singleUserCard">
+          <div class="userPicName">
+            <a class="navLink" routerLink="/users/{{user.id}}">
+              <div class="userPic">
+                <img [src]="user.githubPic" style="width: 150px; clip-path: circle();" alt="user photo">
+              </div>
+              <div class="userName">
+                {{user.firstName}} {{user.lastName}}
+              </div>
+            </a>
+          </div>
+          <div class="userApprovals">
+            <div *ngFor="let sub of user.SubFunctions">
+              <a class="navLink"
+                routerLink="/users/{{user.id}}/jobFunction/{{sub.JobFunctionId}}/subFunction/{{sub.id}}">
+                <div class='pageHolder'>
+                  <div class="page" style="margin: -4px 5px 0 0;">
+                    <div class="standardStat" style="align-self: center; right: 0px; background: #008000;">
+                    </div>
+                  </div>
+                  <div class="page" style="color: black; font-size:large; text-align: left; margin-right: 10px;">
+                    {{sub.subId}} {{sub.papperId}}
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

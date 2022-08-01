@@ -1,0 +1,223 @@
+<div class="singleUsercontainer">
+    <div class="navigation">
+        <div class="sidebarMain">
+            <div *ngIf="jobFunction && user">
+                <a class="navLink" routerLink="/users/{{user.id}}">
+                    <div class="pageHolder" style="background-color: #E5e5e5; padding: 10px; border-radius: 15px;">
+                        <img class="page" [src]="user.githubPic" style="height: 70px; clip-path: circle();" />
+                        <p class="page" style="margin-top: 15px; margin-left: 5px;">
+                            {{user.firstName}} {{user.lastName}}
+                        </p>
+                    </div>
+                </a>
+                <div *ngFor="let jf of jobFunction">
+                    <details (click)="checkStatusPosition(jf)" [id]="jf.id">
+                        <summary class="summaryStyle">
+                            {{jf.title}}
+                            <div style="display: flex; flex-direction: row" [id]="jf.title">
+                                <div *ngFor="let subStatus of user.SubFunctions; index as i">
+                                    <div *ngIf="jf.id == subStatus.JobFunctionId">
+                                        <div *ngIf="userStats[i] == 'crown'; else inline_status">
+                                            <div class="standardCrownStat">
+                                                👑
+                                            </div>
+                                        </div>
+                                        <ng-template #inline_status>
+                                            <div #standard_status class="userStatus" [style.background]="userStats[i]">
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </summary>
+                        <div *ngFor="let child of user.SubFunctions; index as i">
+                            <div *ngIf="jf.id == child.JobFunctionId">
+                                <a class="navLink"
+                                    href="/users/{{user.id}}/jobFunction/{{jf.id}}/subFunction/{{child.id}}">
+                                    <div style="display: flex; flex-direction: row">
+                                        <div *ngIf="userStats[i] == 'crown'; else inline_status">
+                                            <div class="standardCrownStat">
+                                                👑
+                                            </div>
+                                        </div>
+                                        <ng-template #inline_status>
+                                            <div #standard_status class="userStatus" [style.background]="userStats[i]"
+                                                style="align-self: center; right: 0px;">
+                                            </div>
+                                        </ng-template>
+                                        <div class="detailsStyle"> {{child.subId}} {{child.papperId}}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <a class="navLink">
+                <p>About</p>
+            </a>
+            <a class="navLink">
+                <p>Fun Stuff</p>
+            </a>
+        </div>
+    </div>
+    <div class="main">
+        <div *ngIf="jobFunction">
+            <p style="color: #fff; font-size:xx-large">{{jobFunction[jfIndex].title}}</p>
+            <p style="color: #fff; font-size:large">{{jobFunction[jfIndex].description}}</p>
+        </div>
+        <div class="myForm">
+            <div *ngIf="user">
+                <div class='pageHolder'>
+                    <div class="page" style="color: black; font-size:large; text-align: left; margin-right: 10px;">
+                        {{user.SubFunctions[subIndex].subId}}
+                        {{user.SubFunctions[subIndex].papperId}}
+                    </div>
+                    <div class="page" style="margin: 4px 5px 0 0;">
+                        <div *ngIf="hasApproval == 1; else single_status">
+                            <div style="display: flex; flex-direction: row;">
+                                <div class="crownstatus">
+                                    👑
+                                </div>
+                                <div>
+                                    <button [style.display]="isVisible ? 'block' : 'none'"
+                                        (click)="backToProgress($event)">Revoke Completion</button>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #single_status>
+                            <div #standard_status class="standardStat" [style.background]="userStats[subIndex]"
+                                style="align-self: center; right: 0px;">
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="page">
+                        <div *ngIf="(hasApproval == 0)">
+                            <select [style.display]="isVisible ? 'block' : 'none'" [formControl]="subFuncStatus"
+                                (change)="statusUpdate($event)">
+                                <option value="#d9d9d9">Not Started</option>
+                                <option value="#5C89CC">In Progress</option>
+                                <option value="#008000">Ready for Review</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <p style="color: black; font-size:medium; text-align: left;">
+                    {{user.SubFunctions[subIndex].outcomes}}
+                </p>
+            </div>
+            <div>
+                <details id="userCodeSummary">
+                    <summary style="text-align: left;">
+                        Upload Code (Optional)
+                    </summary>
+                    <form [formGroup]="form">
+                        <div class="code-container">
+                            <textarea id="usertextarea" #usertextarea placeholder="Add your code (default html)"
+                                class="text-area-code-editor" formControlName="content" spellcheck="false"
+                                value="{{userCode}}">
+                            </textarea>
+                            <pre aria-hidden="true" class="pre" style="padding-left: 70px;"
+                                #pre><code [ngClass]="['code', 'language-' + codeType]" id="formattedcodecontent" #formattedcodecontent>{{user.SubFunctions[subIndex].UserJob.code}}</code></pre>
+                        </div>
+                    </form>
+                    <div style="text-align: left; display: inline;">
+                        <div *ngIf="isCurrentUser; else just_lang">
+                            Language
+                            <select (change)="update($event)" [formControl]="languageSelect">
+                                <option value="">Please Select...</option>
+                                <option *ngFor="let lang of langList; index as i" [value]="langListType[i]">{{lang}}
+                                </option>
+                            </select>
+                        </div>
+                        <ng-template #just_lang>
+                            <div>
+                                Language: {{currentLanguage}}
+                            </div>
+                        </ng-template>
+                    </div>
+                </details>
+
+            </div>
+            <div *ngIf="isCurrentUser; else user_link">
+                <input class="githubLink" type="url" placeholder="Github link (optional)" [formControl]="githubLink" />
+            </div>
+            <ng-template #user_link>
+                <div *ngIf="displayLink">
+
+                    <div class="viewerGithub">
+                        Github Link:
+                        <a href="{{userLink}}" target="_blank" class="userGithubLink">
+                            {{userLink}}
+                        </a>
+                    </div>
+                </div>
+            </ng-template>
+            <div>
+                <details id="screenshotSummary">
+                    <summary style="text-align: left;">
+                        Upload Screenshot (Optional)
+                    </summary>
+                    <div *ngIf="isCurrentUser">
+                        <div style="display: inline;">
+                            <div *ngIf="showRemove">
+                                <button class="standardButton" (click)="removeImage()" style="margin-top: 50px;">
+                                    Remove Image
+                                </button>
+                            </div>
+                            <label class="standardButton">
+                                Select Screenshot
+                                <input type="file" (change)="onFileSelected($event)" accept="image/*"
+                                    style="margin-top: 50px;" />
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <img id="dogImage" alt="new dog image" src="{{uploadedImage}}" class="uploadedImage" />
+                    </div>
+                </details>
+            </div>
+            <div>
+                <textarea class="textAreaStyle" [formControl]="justification" id="userJustification"
+                    placeholder="Please explain how this meets the criteria"></textarea>
+            </div>
+            <div *ngIf="isCurrentUser">
+                <div>
+                    <button class="standardButton" (click)="postData()">Save</button>
+                </div>
+            </div>
+            <div>
+                <hr />
+                <div>
+                    <label for="adminComments">MV Coach Notes</label>
+                    <textarea id="adminComments" [formControl]="adminComments" class="textAreaStyle"
+                        placeholder="MV coach comments"></textarea>
+                </div>
+                <div style="display: flex; justify-content: space-evenly">
+                    <div>
+                        <select id="meetsExpectations" [formControl]="adminMeetsExpectations"
+                            (change)="adminApproval($event)">
+                            <option value=2>Please Select Status</option>
+                            <option value=0>Needs Improvement</option>
+                            <option value=1>Meets Expectations</option>
+                        </select>
+                        <!-- <input type="checkbox" id="meetsExpectations"
+                            [checked]="adminMeetsExpectations === 1 ? true : false" />
+                        <label for="meetsExpectations">Meets Expectations</label> -->
+                    </div>
+                    <div>
+                        <input type="checkbox" id="onTheJob" [checked]="adminOnJobPractice === 1 ? true : false" />
+                        <label for="onTheJob">On The Job Practice</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="mvPractice" [checked]="adminMvPractice === 1 ? true : false" />
+                        <label for="mvPractice">Practice with Multiverse</label>
+                    </div>
+                </div>
+                <div *ngIf="isAdmin">
+                    <button class="standardButton" (click)="adminPostData()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
