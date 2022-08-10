@@ -26,6 +26,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const currentURL = window.location.pathname;
+    console.log("HERE IS THE LOGIN PAGE")
+    this.http.get('https://serene-inlet-74805.herokuapp.com/api/login/github/callback').subscribe(data => console.log("DATA!",data));
+
     if ((currentURL.split('/')[1] == 'login') || (currentURL.split('/')[1] == '')) {
       this.isLoginPage = true;
     } else {
