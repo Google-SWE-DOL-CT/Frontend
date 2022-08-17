@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
     const helper = new JwtHelperService();
 
     const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    if (decodedToken) {
+    // if (decodedToken) {
       if (decodedToken.id != 0) {
         this.viewStats = true;
       }
@@ -77,9 +77,9 @@ export class UsersComponent implements OnInit {
             }
         }
       })
-    } else {
-      window.location.href = `${environment.frontend_route}/login`;
-    }
+    // } else {
+    //   window.location.href = `${environment.frontend_route}/login`;
+    // }
 
   }
 
