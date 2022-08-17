@@ -23,10 +23,10 @@ export class UserService {
 
   getUsers(): Observable<UserRoot> {
     return this.http.get<UserRoot>(`${this.userUrl}`)
-      .pipe(
-        tap(data => console.log('All: ', JSON.stringify(data))),
-        catchError(this.handleError)
-      );
+      // .pipe(
+      //   tap(data => console.log('All: ', JSON.stringify(data))),
+      //   catchError(this.handleError)
+      // );
   }
 
   getSingleUser(id: number): Observable<User> {
