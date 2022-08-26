@@ -11,7 +11,7 @@ COPY package-lock.json package-lock.json
 FROM base as prod
 # clean dependancy install excluding dev dependancies
 RUN npm i
-RUN npm build
+RUN npm run build
 # copy files to image
 COPY . .
 #expose the port in the docker container
