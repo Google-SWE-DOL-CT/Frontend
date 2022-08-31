@@ -1,23 +1,23 @@
-# FROM node:16.13.1 as base
+FROM node:16.13.1 as base
 
-# # specify the path of the working directory
-# WORKDIR /src
+# specify the path of the working directory
+WORKDIR /src
 
-# # copy package.json for dependancy install
-# COPY package.json package.json
-# COPY package-lock.json package-lock.json
+# copy package.json for dependancy install
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
-# # specify test build
-# FROM base as prod
-# # clean dependancy install excluding dev dependancies
-# RUN npm i
+# specify test build
+FROM base as prod
+# clean dependancy install excluding dev dependancies
+RUN npm i --legacy-peer-deps && npm run build
 # RUN npm run build
-# # copy files to image
-# COPY . .
-# #expose the port in the docker container
-# EXPOSE 4200
-# # the command to start our app
-# CMD [ "npm", "start" ]
+# copy files to image
+COPY . .
+#expose the port in the docker container
+EXPOSE 80
+# the command to start our app
+CMD [ "npm", "start" ]
 
 # # docker build -t test-suite --target test .
 # # docker build -t saucy-site --target prod .
@@ -48,13 +48,13 @@
 # COPY --from=build-step /app/dist/dol-swe-comp /nginxinc/nginx-unprivileged
 # EXPOSE 80
 
-FROM node:alpine AS my-app-build
-WORKDIR /app
-COPY . .
-RUN npm ci --legacy-peer-deps && npm run build
+# FROM node:alpine AS my-app-build
+# WORKDIR /app
+# COPY . .
+# RUN npm ci --legacy-peer-deps && npm run build
 
-# stage 2
+# # stage 2
 
-FROM nginx:alpine
-COPY --from=my-app-build /app/dist/dol-swe-comp /usr/share/nginx/html
-EXPOSE 80
+# FROM nginx:alpine
+# COPY --from=my-app-build /app/dist/dol-swe-comp /usr/share/nginx/html
+# EXPOSE 80
