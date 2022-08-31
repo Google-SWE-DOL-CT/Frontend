@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "echo '!!!start' && ng serve",
-    "build": "echo '!!!build' && npm install --force && ng build --aot --prod",
+    "build": "echo '!!!build' && npm install --force && ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "install-client": "echo '!!!client install' && npm install --force",
