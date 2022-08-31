@@ -21,7 +21,6 @@ EXPOSE 80
 # the command to start our app
 CMD [ "npm", "start" ]
 
-
 # # docker build -t test-suite --target test .
 # # docker build -t saucy-site --target prod .
 # # docker run test-suite
