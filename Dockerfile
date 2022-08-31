@@ -9,11 +9,13 @@ COPY package-lock.json package-lock.json
 
 # specify test build
 FROM base as prod
+
+# copy files to image
+COPY . .
 # clean dependancy install excluding dev dependancies
 RUN npm i --legacy-peer-deps && npm run build
 # RUN npm run build
-# copy files to image
-COPY . .
+
 #expose the port in the docker container
 EXPOSE 80
 # the command to start our app
