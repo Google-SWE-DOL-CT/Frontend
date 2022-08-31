@@ -24,26 +24,37 @@
 # # docker run test-suite
 # # docker run -p 3000:3000 saucy-site
 
-# Stage 1
+# # Stage 1
 
-FROM node:16.13.1 as build-step
+# FROM node:16.13.1 as build-step
 
-RUN mkdir -p /app
+# RUN mkdir -p /app
 
+# WORKDIR /app
+
+# COPY package.json /app
+
+# RUN npm install --force
+
+# COPY . /app
+
+# RUN npm run build
+
+
+# # Stage 2
+
+# FROM nginx:alpine
+
+# COPY --from=build-step /app/dist/dol-swe-comp /nginxinc/nginx-unprivileged
+# EXPOSE 80
+
+FROM node:alpine AS my-app-build
 WORKDIR /app
+COPY . .
+RUN npm ci && npm run build
 
-COPY package.json /app
-
-RUN npm install --force
-
-COPY . /app
-
-RUN npm run build
-
-
-# Stage 2
+# stage 2
 
 FROM nginx:alpine
-
-COPY --from=build-step /app/dist/dol-swe-comp /nginxinc/nginx-unprivileged
+COPY --from=my-app-build /app/dist/dol-swe-comp /usr/share/nginx/html
 EXPOSE 80
