@@ -39,16 +39,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     // this.http.get(`${environment.backend_route}/login/getsession`, options).subscribe(data => console.log("DATA, YO!", data))
     const currentURL = window.location.pathname;
     console.log("HERE IS THE LOGIN PAGE")
-    this.http.get(`${environment.backend_route}/login/getsession`).subscribe({ next: 
-      data => {
-        console.log("DATA!!!!!", data);
-        if (data !== null) {
-          window.location.href == `${environment.frontend_route}`
-          this.hasUserData = true
-        }
-      }
-    });
-    console.log(this.hasUserData);
+    // this.http.get(`${environment.backend_route}/login/getsession`).subscribe({ next: 
+    //   data => {
+    //     console.log("DATA!!!!!", data);
+    //     if (data !== null) {
+    //       window.location.href == `${environment.frontend_route}`
+    //       this.hasUserData = true
+    //     }
+    //   }
+    // });
+    // console.log(this.hasUserData);
     // this.cookieService.set('jwt', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6MywiaWF0IjoxNjYwNzQ2ODM0fQ.dITfGaGJgAS16YhQJa3kz5DqoCZsSjaTgMpm3OqwcDg');
     // console.log("NAME: ",sessionStorage.getItem('token'));
 
