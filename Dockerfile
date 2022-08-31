@@ -45,4 +45,4 @@ RUN npm run build
 
 FROM nginx:1.17.1-alpine
 
-COPY --from=build-step /app/dist/dol-swe-comp /usr/share/nginx/html
+COPY --from=build-step /app/dist/dol-swe-comp /nginxinc/nginx-unprivileged
