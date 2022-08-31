@@ -43,6 +43,7 @@ RUN npm run build
 
 # Stage 2
 
-FROM nginx:1.17.1-alpine
+FROM nginx:alpine
 
 COPY --from=build-step /app/dist/dol-swe-comp /nginxinc/nginx-unprivileged
+EXPOSE 80
