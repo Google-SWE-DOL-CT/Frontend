@@ -51,7 +51,7 @@
 FROM node:alpine AS my-app-build
 WORKDIR /app
 COPY . .
-RUN npm ci && npm run build
+RUN npm ci --legacy-peer-deps && npm run build
 
 # stage 2
 
