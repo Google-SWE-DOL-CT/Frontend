@@ -2,7 +2,7 @@ const express = require('express')
 
 const app = express();
 
-app.use(express.static('./dist'))
+app.use(express.static('./dist/dol-swe-comp'))
 
 app.get('/*', (req,res)=>{
     res.sendFile('index.html', {root:'dist/dol-swe-comp'})})
