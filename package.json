@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "install-client": "echo '!!!client install' && npm install --force",
+    "postinstall": "ng build --aot --prod",
     "heroku-postbuild": "ng build --prod"
   },
   "engines": {
