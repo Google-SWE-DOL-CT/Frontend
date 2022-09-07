@@ -9,14 +9,14 @@ import { AdminRoot } from '../admin-data';
 import { AdminService } from '../admin.service';
 import { User, UserRoot } from '../user';
 import { UserService } from '../user.service';
-import { AfterViewChecked } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
-export class AdminDashboardComponent implements OnInit,  AfterViewChecked {
+export class AdminDashboardComponent implements OnInit, AfterViewInit {
 
   sub!: Subscription
   adminsub!: Subscription
@@ -55,7 +55,7 @@ export class AdminDashboardComponent implements OnInit,  AfterViewChecked {
     })
   }
 
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     // const helper = new JwtHelperService();
 
     // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
