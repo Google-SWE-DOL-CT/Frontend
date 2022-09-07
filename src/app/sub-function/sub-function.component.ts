@@ -136,7 +136,7 @@ export class SubFunctionComponent implements OnInit, AfterViewChecked, AfterView
         this.isAdmin = true
       }
 
-      if (this.route.snapshot.paramMap.get('id') == userId) {
+      if (Number(this.route.snapshot.paramMap.get('id')) == userId) {
         this.isCurrentUser = true;
       } else {
         this.isVisible = false
