@@ -117,11 +117,13 @@ export class SubFunctionComponent implements OnInit, AfterViewChecked, AfterView
 
 
   ngOnInit(): void {
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
 
-    const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    if (decodedToken) {
-      if (decodedToken.isAdmin != 1) {
+    // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+    const userId = Number(window.localStorage.getItem('uid'));
+    const adminId = Number(window.localStorage.getItem('admin'));
+    if (userId) {
+      if (adminId != 1) {
         const adminCommentDiv = document.getElementById("adminComments") as HTMLElement;
         adminCommentDiv.setAttribute('disabled', '')
         const meetsExpectationsDiv = document.getElementById("meetsExpectations") as HTMLElement;
@@ -134,7 +136,7 @@ export class SubFunctionComponent implements OnInit, AfterViewChecked, AfterView
         this.isAdmin = true
       }
 
-      if (this.route.snapshot.paramMap.get('id') == decodedToken.id) {
+      if (this.route.snapshot.paramMap.get('id') == userId) {
         this.isCurrentUser = true;
       } else {
         this.isVisible = false
