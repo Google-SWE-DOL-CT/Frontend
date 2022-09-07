@@ -45,11 +45,13 @@ export class AdminDashboardComponent implements OnInit {
 
     setCookie(): void {
       const userId = Number(this.route.snapshot.paramMap.get('id')); 
-      if (this.cookieService.get('uid') == null) {
+      if (window.localStorage.getItem('uid') == null) {
         this.userService.getSingleUser(userId).subscribe({
           next: userInfo => {
-              this.cookieService.set('uid', String(userInfo.id));
-              this.cookieService.set('admin', String(userInfo.isAdmin));
+              window.localStorage.setItem('uid', String(userInfo.id));
+              window.localStorage.setItem('admin', String(userInfo.isAdmin));
+              // this.cookieService.set();
+              // this.cookieService.set();
             } 
         })
       }
@@ -59,14 +61,14 @@ export class AdminDashboardComponent implements OnInit {
     this.setCookie();
     // const helper = new JwtHelperService();
 
-    // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    if (this.cookieService.get('uid')) {
+    // const decodedToken = helper.decodeToken(window.localStorage.getItem('jwt'));
+    if (window.localStorage.getItem('uid')) {
       console.log("Single user Cookie available!")
-      if (Number(this.cookieService.get('admin')) != 1) {
-        window.location.href = `${environment.frontend_route}/users/${this.cookieService.get('uid')}`
+      if (Number(window.localStorage.getItem('admin')) != 1) {
+        window.location.href = `${environment.frontend_route}/users/${window.localStorage.getItem('uid')}`
       } else {
         console.log("Into the admin dashboard information block")
-        this.adminId = Number(this.cookieService.get('uid'));
+        this.adminId = Number(window.localStorage.getItem('uid'));
         this.sub = this.userService.getUsers().subscribe({
           next: users => {
             console.log("subscribed to all users")

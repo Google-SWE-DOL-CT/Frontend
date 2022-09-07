@@ -45,11 +45,13 @@ export class SingleUserComponent implements OnInit {
     userId = Number(this.route.snapshot.paramMap.get('id')); 
 
     setCookie(): void {      
-      if (this.cookieService.get('uid') == null) {
+      if (window.localStorage.getItem('uid') == null) {
         this.userService.getSingleUser(this.userId).subscribe({
           next: userInfo => {
-              this.cookieService.set('uid', String(userInfo.id));
-              this.cookieService.set('admin', String(userInfo.isAdmin));
+            window.localStorage.setItem('uid', String(userInfo.id));
+            window.localStorage.setItem('admin', String(userInfo.isAdmin));
+              // this.cookieService.set('uid', String(userInfo.id));
+              // this.cookieService.set('admin', String(userInfo.isAdmin));
             } 
         })
       }
@@ -63,8 +65,8 @@ export class SingleUserComponent implements OnInit {
       // const helper = new JwtHelperService();
 
       // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-      const cookieId = Number(this.cookieService.get('uid'));
-      const cookieAdmin = Number(this.cookieService.get('admin'));
+      const cookieId = Number(window.localStorage.getItem('uid'));
+      const cookieAdmin = Number(window.localStorage.getItem('admin'));
 
       if (cookieId && cookieAdmin) {
         if (cookieAdmin != 1) {
