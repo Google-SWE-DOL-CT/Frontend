@@ -60,13 +60,13 @@ export class AdminDashboardComponent implements OnInit {
     // const helper = new JwtHelperService();
 
     // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    if (this.singleUser) {
+    if (this.cookieService.get('uid')) {
       console.log("Single user Cookie available!")
-      if (this.singleUser.isAdmin != 1) {
-        window.location.href = `${environment.frontend_route}/users/${this.singleUser.id}`
+      if (Number(this.cookieService.get('admin')) != 1) {
+        window.location.href = `${environment.frontend_route}/users/${this.cookieService.get('uid')}`
       } else {
         console.log("Into the admin dashboard information block")
-        this.adminId = this.singleUser.id;
+        this.adminId = Number(this.cookieService.get('uid'));
         this.sub = this.userService.getUsers().subscribe({
           next: users => {
             console.log("subscribed to all users")
