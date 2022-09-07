@@ -48,8 +48,8 @@ export class AdminDashboardComponent implements OnInit {
     this.userService.getSingleUser(userId).subscribe({
       next: userInfo => {
         this.singleUser = userInfo;
-        this.cookieService.set('uid', userInfo.id);
-        this.cookieService.set('admin', userInfo.isAdmin);
+        this.cookieService.set('uid', String(userInfo.id));
+        this.cookieService.set('admin', String(userInfo.isAdmin));
       } 
     })
 
