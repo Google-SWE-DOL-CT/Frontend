@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { CookieService } from 'ngx-cookie-service';
@@ -33,11 +35,20 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
     private adminService: AdminService,
     private cookieService: CookieService,
     ) {}
 
   ngOnInit(): void {
+    const userId = this.route.snapshot.paramMap.get('id'); 
+    console.log("From Param Route: ", userId)
+    this.http.get(`${environment.backend_route}/users/${userId}`).subscribe({
+      next: userInfo => {
+        console.log("in the sub!", userInfo);
+      } 
+    })
     const helper = new JwtHelperService();
 
     const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
