@@ -68,7 +68,7 @@
 ##### Trying some thangs 9/3
 FROM node:18.6.0-alpine3.15 as node
 
-WORKDIR /usr/src/app
+WORKDIR /src
 
 COPY package*.json ./
 
