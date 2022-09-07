@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
       withCredentials: true,
     }
-
+    this.cookieService.set('JJWWTT', 'USER ID IS MANUALLY SET TO 1');
     // this.http.get(`${environment.backend_route}/login/getsession`, options).subscribe(data => console.log("DATA, YO!", data))
     const currentURL = window.location.pathname;
     console.log("HERE IS THE LOGIN PAGE")
