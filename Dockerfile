@@ -79,11 +79,11 @@ COPY . .
 RUN npm run build
 
 # stage 2
-FROM nginx:1.21-alpine
+# FROM nginx:1.21-alpine
 
-COPY --from=node /usr/src/app/dist/dol-swe-comp /usr/share/nginx/html
+# COPY --from=node /usr/src/app/dist/dol-swe-comp /usr/share/nginx/html
 
 
-COPY ./nginx.config /etc/nginx/conf.d/default.conf
+# COPY ./nginx.config /etc/nginx/conf.d/default.conf
 
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' etc/nginx/conf.d/default.conf && nginx -g 'daemon off'
+# CMD sed -i -e 's/$PORT/'"$PORT"'/g' etc/nginx/conf.d/default.conf && nginx -g 'daemon off'
