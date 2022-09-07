@@ -108,5 +108,8 @@
       }
     }
   },
-  "defaultProject": "dol-swe-comp"
+  "defaultProject": "dol-swe-comp",
+  "cli": {
+    "analytics": "c34832aa-74f1-45db-97e3-8c86db2ae8a3"
+  }
 }

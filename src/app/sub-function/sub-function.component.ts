@@ -354,7 +354,7 @@ export class SubFunctionComponent implements OnInit, AfterViewChecked, AfterView
   }
 
   private listenForm(): void {
-      this.sub = this.form.valueChanges.subscribe((val) => {
+      this.sub = this.form.valueChanges.subscribe((val: any) => {
         const modifiedContent = this.prismService.convertHtmlIntoString(val.content);
   
         this.renderer.setProperty(this.formattedcodecontent.nativeElement, 'innerHTML', modifiedContent);
