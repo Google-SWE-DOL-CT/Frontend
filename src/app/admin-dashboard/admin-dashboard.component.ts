@@ -9,13 +9,14 @@ import { AdminRoot } from '../admin-data';
 import { AdminService } from '../admin.service';
 import { User, UserRoot } from '../user';
 import { UserService } from '../user.service';
+import { AfterViewChecked } from '@angular/core';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
-export class AdminDashboardComponent implements OnInit {
+export class AdminDashboardComponent implements OnInit,  AfterViewChecked {
 
   sub!: Subscription
   adminsub!: Subscription
@@ -52,7 +53,9 @@ export class AdminDashboardComponent implements OnInit {
         this.cookieService.set('admin', String(userInfo.isAdmin));
       } 
     })
+  }
 
+  ngAfterViewChecked(): void {
     // const helper = new JwtHelperService();
 
     // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
@@ -114,6 +117,8 @@ export class AdminDashboardComponent implements OnInit {
           }
         })
       }
+    } else {
+      console.log('no single user, womp womp :(');
     }
   }
 
