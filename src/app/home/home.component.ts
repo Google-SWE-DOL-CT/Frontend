@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     // this.http.get(`${environment.backend_route}/login/getsession`, options).subscribe(data => console.log("DATA, YO!", data))
     const currentURL = window.location.pathname;
-    console.log("HERE IS THE LOGIN PAGE")
     // this.http.get(`${environment.backend_route}/login/getsession`).subscribe({ next: 
     //   data => {
     //     console.log("DATA!!!!!", data);
@@ -51,27 +50,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     // this.cookieService.set('jwt', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6MywiaWF0IjoxNjYwNzQ2ODM0fQ.dITfGaGJgAS16YhQJa3kz5DqoCZsSjaTgMpm3OqwcDg');
     // console.log("NAME: ",sessionStorage.getItem('token'));
 
-    // if ((currentURL.split('/')[1] == 'login') || (currentURL.split('/')[1] == '')) {
-    //   this.isLoginPage = true;
-    // } else {
-    //   this.isLoginPage = false
-    //   const helper = new JwtHelperService();
-    //   const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    //   if (decodedToken) {
-    //     console.log(decodedToken.isAdmin)
-      //   this.userId = decodedToken.id;
-      //   this.isAdmin = decodedToken.isAdmin
-      //   console.log(this.isAdmin)
-      //   if (decodedToken.isAdmin == 1) {
-      //     this.profileLink = `http://localhost:4200/users/${this.userId}/admin-dashboard`
-      //   } else {
-      //     this.profileLink = `http://localhost:4200/users/${this.userId}`
-      //   }
-      // } else {
-      //   window.location.href = 'http://localhost:4200/login';
-      // }
-    // }
-
+    if ((currentURL.split('/')[1] == 'login') || (currentURL.split('/')[1] == '')) {
+      this.isLoginPage = true;
+    } else {
+      this.isLoginPage = false
+      // const helper = new JwtHelperService();
+      // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+      const cookieId = this.cookieService.get('uid');
+      const cookieAdmin = this.cookieService.get('admin')
+      if (cookieId && cookieAdmin) {
+        // console.log(decodedToken.isAdmin)
+        this.userId = cookieId;
+        this.isAdmin = cookieAdmin
+        // console.log(this.isAdmin)
+        if (cookieAdmin == 1) {
+          this.profileLink = `${environment.frontend_route}/users/${this.userId}/admin-dashboard`
+        } else {
+          this.profileLink = `${environment.frontend_route}/users/${this.userId}`
+        }
+      } else {
+        window.location.href = '${environment.frontend_route}/login';
+      }
+    }
   }
 
   myProfile(): void {
@@ -79,14 +79,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   switchRole(): void {
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    const id = decodedToken.id
-    console.log("Before: " + decodedToken.isAdmin)
+    // const helper = new JwtHelperService();
+    // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+    const id = this.cookieService.get('uid')
+    // console.log("Before: " + decodedToken.isAdmin)
 
     this.http.get(`${environment.backend_route}/users/switchAdmin/${id}`).subscribe(data => console.log(data));
-    const newId = helper.decodeToken(this.cookieService.get('jwt'))
-    console.log("After: " + newId.isAdmin)
+    // const newId = helper.decodeToken(this.cookieService.get('jwt'))
+    // console.log("After: " + newId.isAdmin)
     window.location.href = `${environment.backend_route}/login/github`;
   }
 
