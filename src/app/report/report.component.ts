@@ -110,12 +110,12 @@ export class ReportComponent implements OnInit, AfterViewChecked {
     ]
 
   ngOnInit(): void {
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
 
-    const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    if (decodedToken) {
-      if (decodedToken.isAdmin != 1) {
-        window.location.href = `${environment.frontend_route}/users/${decodedToken.id}`
+    // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+    if (window.localStorage.getItem('uid')) {
+      if (Number(window.localStorage.getItem('admin')) != 1) {
+        window.location.href = `${environment.frontend_route}/users/${window.localStorage.getItem('uid')}`
       } else {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         this.userService.getSingleUser(id).subscribe({
