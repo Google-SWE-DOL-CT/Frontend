@@ -3,7 +3,7 @@
     <div class="userCards" onload="shuffleItems()">
       <div class="cards">
         <div class="card" *ngFor="let user of userRoot.users; let i=index">
-          <a class="standardLink" [routerLink]="['/users/{{user.id}}']">
+          <a class="standardLink" routerLink="/users/{{user.id}}">
             <div>
               <img class="imageStyle" [src]="user.githubPic" alt="">
             </div>
