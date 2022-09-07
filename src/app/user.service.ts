@@ -31,9 +31,9 @@ export class UserService {
 
   getSingleUser(id: number): Observable<User> {
     //const headers = { 'content-type': 'application/json'}
-    let header = new HttpHeaders().set("Authorization", this.cookieService.get("jwt"))
-    console.log("COOOKKKIEE", this.cookieService.get("jwt"))
-    return this.http.get<User>(`${this.userUrl}/${id}`, {headers: header})
+    // let header = new HttpHeaders().set("Authorization", this.cookieService.get("jwt"))
+    // console.log("COOOKKKIEE", this.cookieService.get("jwt"))
+    return this.http.get<User>(`${this.userUrl}/${id}`)
     // .pipe(
     //   tap(data => console.log('Single User: ', JSON.stringify(data))),
     //   catchError(this.handleError)

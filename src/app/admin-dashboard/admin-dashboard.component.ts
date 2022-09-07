@@ -57,12 +57,15 @@ export class AdminDashboardComponent implements OnInit {
 
     // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
     if (this.singleUser) {
+      console.log("Single user Cookie available!")
       if (this.singleUser.isAdmin != 1) {
         window.location.href = `${environment.frontend_route}/users/${this.singleUser.id}`
       } else {
+        console.log("Into the admin dashboard information block")
         this.adminId = this.singleUser.id;
         this.sub = this.userService.getUsers().subscribe({
           next: users => {
+            console.log("subscribed to all users")
               this.userRoot = users;
               this.userRoot.users.sort(()=> Math.random() - 0.5)
               for (let i = 0; i < users.users.length; i++) {
@@ -74,6 +77,7 @@ export class AdminDashboardComponent implements OnInit {
                 this.totalCount[i] = 0;
                 this.userService.getSingleUser(element.id).subscribe({
                   next: data => {
+                    console.log("subscribed to single user")
                     // this.userDetails.push(data)
                     for (let j = 0; j < data.SubFunctions.length; j++) {
                       this.totalCount[i]++;
