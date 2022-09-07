@@ -45,14 +45,14 @@ export class AdminDashboardComponent implements OnInit {
 
     setCookie(): void {
       const userId = Number(this.route.snapshot.paramMap.get('id')); 
-      console.log("From Param Route: ", userId)
-      this.userService.getSingleUser(userId).subscribe({
-        next: userInfo => {
-          // this.singleUser = userInfo;
-          this.cookieService.set('uid', String(userInfo.id));
-          this.cookieService.set('admin', String(userInfo.isAdmin));
-        } 
-      })
+      if (this.cookieService.get('uid') == null) {
+        this.userService.getSingleUser(userId).subscribe({
+          next: userInfo => {
+              this.cookieService.set('uid', String(userInfo.id));
+              this.cookieService.set('admin', String(userInfo.isAdmin));
+            } 
+        })
+      }
     }
 
   ngOnInit(): void {

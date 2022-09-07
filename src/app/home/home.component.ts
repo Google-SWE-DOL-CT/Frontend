@@ -27,50 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type' : 'application/json',
-        'Cache-Control': 'no-cache',
-        'Credentials': 'same-origin'
-      }),
-      withCredentials: true,
-    }
-    // this.http.get(`${environment.backend_route}/login/getsession`, options).subscribe(data => console.log("DATA, YO!", data))
     const currentURL = window.location.pathname;
-    // this.http.get(`${environment.backend_route}/login/getsession`).subscribe({ next: 
-    //   data => {
-    //     console.log("DATA!!!!!", data);
-    //     if (data !== null) {
-    //       window.location.href == `${environment.frontend_route}`
-    //       this.hasUserData = true
-    //     }
-    //   }
-    // });
-    // console.log(this.hasUserData);
-    // this.cookieService.set('jwt', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6MywiaWF0IjoxNjYwNzQ2ODM0fQ.dITfGaGJgAS16YhQJa3kz5DqoCZsSjaTgMpm3OqwcDg');
-    // console.log("NAME: ",sessionStorage.getItem('token'));
 
     if ((currentURL.split('/')[1] == 'login') || (currentURL.split('/')[1] == '')) {
       this.isLoginPage = true;
     } else {
       this.isLoginPage = false
-      // const helper = new JwtHelperService();
-      // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-      // const cookieId = Number(this.cookieService.get('uid'));
-      // const cookieAdmin = Number(this.cookieService.get('admin'));
-      // if (cookieId && cookieAdmin) {
-      //   // console.log(decodedToken.isAdmin)
-      //   this.userId = Number(cookieId);
-      //   this.isAdmin = Number(cookieAdmin);
-      //   // console.log(this.isAdmin)
-      //   if (cookieAdmin == 1) {
-      //     this.profileLink = `${environment.frontend_route}/users/${this.userId}/admin-dashboard`
-      //   } else {
-      //     this.profileLink = `${environment.frontend_route}/users/${this.userId}`
-      //   }
-      // } else {
-      //   window.location.href = '${environment.frontend_route}/login';
-      // }
     }
   }
 
