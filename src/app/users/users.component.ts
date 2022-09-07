@@ -31,13 +31,13 @@ export class UsersComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
 
-    const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+    // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
     // if (decodedToken) {
-      if (decodedToken.id != 0) {
+      // if (decodedToken.id != 0) {
         this.viewStats = true;
-      }
+      // }
 
       this.sub = this.userService.getUsers().subscribe({
         next: users => {
