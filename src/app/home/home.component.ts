@@ -56,21 +56,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.isLoginPage = false
       // const helper = new JwtHelperService();
       // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-      const cookieId = Number(this.cookieService.get('uid'));
-      const cookieAdmin = Number(this.cookieService.get('admin'));
-      if (cookieId && cookieAdmin) {
-        // console.log(decodedToken.isAdmin)
-        this.userId = Number(cookieId);
-        this.isAdmin = Number(cookieAdmin);
-        // console.log(this.isAdmin)
-        if (cookieAdmin == 1) {
-          this.profileLink = `${environment.frontend_route}/users/${this.userId}/admin-dashboard`
-        } else {
-          this.profileLink = `${environment.frontend_route}/users/${this.userId}`
-        }
-      } else {
-        window.location.href = '${environment.frontend_route}/login';
-      }
+      // const cookieId = Number(this.cookieService.get('uid'));
+      // const cookieAdmin = Number(this.cookieService.get('admin'));
+      // if (cookieId && cookieAdmin) {
+      //   // console.log(decodedToken.isAdmin)
+      //   this.userId = Number(cookieId);
+      //   this.isAdmin = Number(cookieAdmin);
+      //   // console.log(this.isAdmin)
+      //   if (cookieAdmin == 1) {
+      //     this.profileLink = `${environment.frontend_route}/users/${this.userId}/admin-dashboard`
+      //   } else {
+      //     this.profileLink = `${environment.frontend_route}/users/${this.userId}`
+      //   }
+      // } else {
+      //   window.location.href = '${environment.frontend_route}/login';
+      // }
     }
   }
 

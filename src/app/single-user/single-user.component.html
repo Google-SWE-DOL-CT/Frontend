@@ -54,7 +54,7 @@
         </div>
         <div class="main">
             <div class="statusDiv">
-                <div *ngFor="let circ of userStats; index as i">
+                <!-- <div *ngFor="let circ of userStats; index as i">
                     <div *ngIf="circ == 'crown'; else standard_status">
                         <div class="crownstatus" [style.transform]="'rotate('+userStatAngles[i]+'deg'+')'">
                             <div [style.transform]="'rotate('+(0 - userStatAngles[i])+'deg'+')'">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </ng-template>
-                </div>
+                </div> -->
                 <img [src]="user.githubPic" class="gitHubPicture" />
             </div>
             <h1 style="margin-top: 50px;">
