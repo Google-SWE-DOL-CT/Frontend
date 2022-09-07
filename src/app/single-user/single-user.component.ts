@@ -42,22 +42,42 @@ export class SingleUserComponent implements OnInit {
     private jobFunctionService: JobFunctionService,
     private cookieService: CookieService,
     ) { }
+    userId = Number(this.route.snapshot.paramMap.get('id')); 
+
+    setCookie(): void {      
+      console.log("Set cookie from param route: ", this.userId)
+      this.userService.getSingleUser(this.userId).subscribe({
+        next: userInfo => {
+          this.cookieService.set('uid', String(userInfo.id));
+          this.cookieService.set('admin', String(userInfo.isAdmin));
+        } 
+      })
+    }
     
     isAdmin = false;
     isCurrentUser = false;
-    ngOnInit(): void {
-      const helper = new JwtHelperService();
 
-      const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-      if (decodedToken) {
-        if (decodedToken.isAdmin != 1) {
+    ngOnInit(): void {
+      if (this.cookieService.get('uid')) {
+        console.log('No need to set cookie');
+      } else {
+        this.setCookie();
+      }
+      // const helper = new JwtHelperService();
+
+      // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+      const cookieId = Number(this.cookieService.get('uid'));
+      const cookieAdmin = Number(this.cookieService.get('admin'));
+
+      if (cookieId && cookieAdmin) {
+        if (cookieAdmin != 1) {
           this.isAdmin = false
         } else {
           this.isAdmin = true
         }
   
         const id = Number(this.route.snapshot.paramMap.get('id'));
-        if (id == decodedToken.id) {
+        if (id == cookieId) {
           this.isCurrentUser = true;
         } 
       

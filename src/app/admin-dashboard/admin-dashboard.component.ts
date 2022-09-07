@@ -20,7 +20,7 @@ export class AdminDashboardComponent implements OnInit {
   sub!: Subscription
   adminsub!: Subscription
   userRoot!: UserRoot
-  singleUser!: User;
+  // singleUser!: User;
 
   userDetails: User[] = []
 
@@ -48,7 +48,7 @@ export class AdminDashboardComponent implements OnInit {
       console.log("From Param Route: ", userId)
       this.userService.getSingleUser(userId).subscribe({
         next: userInfo => {
-          this.singleUser = userInfo;
+          // this.singleUser = userInfo;
           this.cookieService.set('uid', String(userInfo.id));
           this.cookieService.set('admin', String(userInfo.isAdmin));
         } 
