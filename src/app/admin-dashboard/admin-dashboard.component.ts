@@ -20,6 +20,7 @@ export class AdminDashboardComponent implements OnInit {
   sub!: Subscription
   adminsub!: Subscription
   userRoot!: UserRoot
+  singleUser!: User;
 
   userDetails: User[] = []
 
@@ -42,21 +43,24 @@ export class AdminDashboardComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.paramMap.get('id'); 
+    const userId = Number(this.route.snapshot.paramMap.get('id')); 
     console.log("From Param Route: ", userId)
-    this.http.get(`${environment.backend_route}/users/${userId}`).subscribe({
+    this.userService.getSingleUser(userId).subscribe({
       next: userInfo => {
-        console.log("in the sub!", userInfo);
+        this.singleUser = userInfo;
+        this.cookieService.set('uid', userInfo.id);
+        this.cookieService.set('admin', userInfo.isAdmin);
       } 
     })
-    const helper = new JwtHelperService();
 
-    const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
-    if (decodedToken) {
-      if (decodedToken.isAdmin != 1) {
-        window.location.href = `${environment.frontend_route}/users/${decodedToken.id}`
+    // const helper = new JwtHelperService();
+
+    // const decodedToken = helper.decodeToken(this.cookieService.get('jwt'));
+    if (this.singleUser) {
+      if (this.singleUser.isAdmin != 1) {
+        window.location.href = `${environment.frontend_route}/users/${this.singleUser.id}`
       } else {
-        this.adminId = decodedToken.id;
+        this.adminId = this.singleUser.id;
         this.sub = this.userService.getUsers().subscribe({
           next: users => {
               this.userRoot = users;
