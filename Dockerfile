@@ -1,25 +1,25 @@
-# FROM node:16.13.1 as base
+FROM node:16.13.1 as base
 
-# # specify the path of the working directory
-# WORKDIR /src
+# specify the path of the working directory
+WORKDIR /src
 
-# # copy package.json for dependancy install
-# COPY package.json package.json
-# COPY package-lock.json package-lock.json
+# copy package.json for dependancy install
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
-# # specify test build
-# FROM base as prod
+# specify test build
+FROM base as prod
 
-# # copy files to image
-# COPY . .
-# # clean dependancy install excluding dev dependancies
-# RUN npm i --legacy-peer-deps && npm run build
-# # RUN npm run build
+# copy files to image
+COPY . .
+# clean dependancy install excluding dev dependancies
+RUN npm i --legacy-peer-deps && npm run build
+# RUN npm run build
 
-# #expose the port in the docker container
-# EXPOSE 80
-# # the command to start our app
-# CMD [ "npm", "start" ]
+#expose the port in the docker container
+EXPOSE 80
+# the command to start our app
+CMD [ "npm", "start" ]
 
 
 # # docker build -t test-suite --target test .
@@ -66,17 +66,17 @@
 
 
 ##### Trying some thangs 9/3
-FROM node:18.6.0-alpine3.15 as node
+# FROM node:18.6.0-alpine3.15 as node
 
-WORKDIR /src
+# WORKDIR /src
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install --force
+# RUN npm install --force
 
-COPY . .
+# COPY . .
 
-RUN npm run build
+# RUN npm run build
 
 # stage 2
 # FROM nginx:1.21-alpine
