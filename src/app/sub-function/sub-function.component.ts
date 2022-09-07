@@ -463,9 +463,8 @@ export class SubFunctionComponent implements OnInit, AfterViewChecked, AfterView
     }
     currentUserJob.justification = this.justification.value
 
-    const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(currentUserJob);
-    this.http.put<UserJob>(`${environment.backend_route}/users/${this.user.id}/jobFunction/${jfId}/subFunction/${subId}`, body, {'headers':headers})
+    this.http.put<UserJob>(`${environment.backend_route}/users/${this.user.id}/jobFunction/${jfId}/subFunction/${subId}`, body)
     .subscribe(result => { console.log("Posted" + JSON.stringify(result)); }, error => console.error(error));
     // Mod 3 feature - instead of reload, toast or customized alert of somekind?
     window.location.reload();
@@ -499,10 +498,8 @@ export class SubFunctionComponent implements OnInit, AfterViewChecked, AfterView
     const mvPracticeDiv = document.getElementById("mvPractice") as HTMLInputElement;
     this.adminJob.mvPractice = mvPracticeDiv.checked ? 1 : 0 
 
-    const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(this.adminJob);
-    this.http.put<AdminInput>(`${environment.backend_route}/admin/users/${this.user.id}/jobFunction/${jfId}/subFunction/${subId}`, body, {'headers':headers})
-    .subscribe(result => { console.log("Posted" + JSON.stringify(result)); }, error => console.error(error));
+    this.http.put<AdminInput>(`${environment.backend_route}/admin/users/${this.user.id}/jobFunction/${jfId}/subFunction/${subId}`, body).subscribe(result => { console.log("Posted" + JSON.stringify(result)); }, error => console.error(error));
     window.location.reload();
   }
 
